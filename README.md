@@ -1,29 +1,19 @@
-# vue-youtube
+# economy_VUE
 
-## Project setup
-```
-npm install
-```
+- Login
+![img](readMe/q.jpg)
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+* Home
+  ![img](/readMe/1.jpg)
 
-### Compiles and minifies for production
-```
-npm run build
-```
+* history
+  ![img](/readMe/2.jpg)
 
-### Run your tests
-```
-npm run test
-```
+* planning
+  ![img](/readMe/3.jpg)
 
-### Lints and fixes files
-```
-npm run lint
-```
+* record
+  ![img](/readMe/4.jpg)
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+* categories
+  ![img](/readMe/5.jpg)
