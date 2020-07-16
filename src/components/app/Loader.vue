@@ -1,26 +1,32 @@
 <template>
-  <div class="app-loader">
-    <div class="preloader-wrapper active">
-      <div class="spinner-layer" :class="color">
-        <div class="circle-clipper left">
-          <div class="circle"></div>
-        </div><div class="gap-patch">
-          <div class="circle"></div>
-        </div><div class="circle-clipper right">
-          <div class="circle"></div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="lds-dual-ring"></div>
 </template>
 
-<script>
-export default {
-  computed: {
-    color() {
-      const colors = ['spinner-red-only', 'spinner-blue-only', 'spinner-green-only']
-      return colors[Math.floor(Math.random() * 3)]
-    }
+
+
+<style scoped>
+.lds-dual-ring {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+}
+.lds-dual-ring:after {
+  content: ' ';
+  display: block;
+  width: 90px;
+  height: 90px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid blue;
+  border-color: blue transparent blue transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
-</script>
+</style>

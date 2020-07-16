@@ -1,94 +1,43 @@
 <template>
-  <form class="card auth-card" @submit.prevent="submitHandler">
-    <div class="card-content">
-      <span class="card-title">{{'CRM_Title'|localize}}</span>
-      <div class="input-field">
-        <input
-          id="email"
-          type="text"
-          v-model.trim="email"
-          :class="{invalid: ($v.email.$dirty && !$v.email.required) || ($v.email.$dirty && !$v.email.email)}"
-        >
-        <label for="email">Email</label>
-        <small
-          class="helper-text invalid"
-          v-if="$v.email.$dirty && !$v.email.required"
-        >{{'Message_EmailRequired'|localize}}</small>
-        <small
-          class="helper-text invalid"
-          v-else-if="$v.email.$dirty && !$v.email.email"
-        >{{'Message_EmailValid'|localize}}</small>
-      </div>
-      <div class="input-field">
-        <input
-          id="password"
-          type="password"
-          v-model.trim="password"
-          :class="{invalid: ($v.password.$dirty && !$v.password.required) || ($v.password.$dirty && !$v.password.minLength)}"
-        >
-        <label for="password">{{'Password'|localize}}</label>
-        <small
-          class="helper-text invalid"
-          v-if="$v.password.$dirty && !$v.password.required"
-        >{{'Message_EnterPassword'|localize}}</small>
-        <small
-          class="helper-text invalid"
-          v-else-if="$v.password.$dirty && !$v.password.minLength"
-        >{{'Message_MinLength'|localize}} {{$v.password.$params.minLength.min}}</small>
-      </div>
-    </div>
-    <div class="card-action">
-      <div>
-        <button class="btn waves-effect waves-light auth-submit" type="submit">
-          {{'Login'|localize}}
-          <i class="material-icons right">send</i>
-        </button>
-      </div>
+  <div class="login_block">
+    <div class="auth_block">
+      <img class="logo" src="@/assets/img/logo.png" alt />
+      <h3>Вход</h3>
 
-      <p class="center">
-        {{'NoAccount'|localize}}
-        <router-link to="/register">{{'Register'|localize}}</router-link>
-      </p>
+      <form class="auth_form" @submit.prevent="submitHandler">
+        <label for="login">Логин</label>
+        <input type="text" id="login" v-model.trim="email" />
+        <label for="password">Пароль</label>
+        <div class="pass">
+          <input type="password" id="password" v-model.trim="password" v-show="!showPass" />
+          <input type="text" id="password" v-model.trim="password" v-show="showPass" />
+          <a
+            class="material-icons password_control"
+            :class="{ active: showPass }"
+            @click="showPass = !showPass"
+          >visibility_off</a>
+        </div>
+        <button type="submit" class="btn">Войти</button>
+      </form>
     </div>
-  </form>
+  </div>
 </template>
 
 <script>
-import { email, required, minLength } from 'vuelidate/lib/validators'
-import messages from '@/utils/messages'
-import localizeFilter from '@/filters/localize.filter'
-
 export default {
   name: 'login',
-  metaInfo() {
-    return {
-      title: this.$title('Login')
-    }
-  },
   data: () => ({
     email: '',
-    password: ''
+    password: '',
+    showPass: false
   }),
-  validations: {
-    email: { email, required },
-    password: { required, minLength: minLength(6) }
-  },
-  mounted() {
-    if (messages[this.$route.query.message]) {
-      this.$message(localizeFilter(messages[this.$route.query.message]))
-    }
-  },
+
   methods: {
     async submitHandler() {
-      if (this.$v.$invalid) {
-        this.$v.$touch()
-        return
-      }
       const formData = {
         email: this.email,
         password: this.password
       }
-
       try {
         await this.$store.dispatch('login', formData)
         this.$router.push('/')
@@ -97,3 +46,105 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+h3 {
+  font-size: 18px;
+  margin-top: 3vh;
+}
+label {
+  margin-top: 1vh;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 22px;
+  color: rgba(23, 23, 25, 0.3);
+}
+input {
+  border: 1px solid rgba(23, 23, 25, 0.2);
+  box-sizing: border-box;
+  border-radius: 5px;
+  height: 30px;
+  width: 300px;
+  height: 48px;
+  font-size: 20px;
+  padding-left: 15px;
+  outline: none;
+}
+.pass {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.password_control {
+  position: absolute;
+  color: #d1d1d1;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.active {
+  color: #1390e5;
+}
+
+input:focus {
+  background: rgba(197, 228, 249, 0.3);
+  border: 1px solid #1390e5;
+}
+
+.btn {
+  margin-top: 4vh;
+  background: #1390e5;
+  border-radius: 5px;
+  width: 176px;
+  height: 52px;
+  color: white;
+  border: 0px;
+  margin-left: 5vw;
+  cursor: pointer;
+  outline: none;
+}
+
+.btn:hover {
+  background: #1087d6;
+}
+
+.login_block {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fafafa;
+  height: 100%;
+  width: 100%;
+}
+
+.auth_block {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  background: #ffffff;
+  border: 1px solid rgba(39, 39, 39, 0.1);
+  box-sizing: border-box;
+  border-radius: 5px;
+  width: 510px;
+  height: 512px;
+}
+.auth_form {
+  display: flex;
+
+  flex-direction: column;
+
+  flex-wrap: wrap;
+
+  margin-top: 3vh;
+}
+
+.logo {
+  margin-top: 5vh;
+  object-fit: scale-down;
+}
+</style>

@@ -1,48 +1,80 @@
 <template>
-  <nav class="navbar orange lighten-1">
-    <div class="nav-wrapper">
-      <div class="navbar-left">
-        <a href="#" @click.prevent="$emit('click')">
-          <i class="material-icons black-text">dehaze</i>
-        </a>
-        <span class="black-text">{{date | date('datetime')}}</span>
-      </div>
+  <div class="nav">
+    <div class="ovner">
+      <router-link to="/">
+        <img src="@/assets/img/logo.png" alt="logo" class="logo" />
+      </router-link>
 
-      <ul class="right hide-on-small-and-down">
-        <li>
-          <a class="dropdown-trigger black-text" href="#" data-target="dropdown" ref="dropdown">
-            {{name}}
-            <i class="material-icons right">arrow_drop_down</i>
-          </a>
-
-          <ul id="dropdown" class="dropdown-content">
-            <li>
-              <router-link to="/profile" class="black-text">
-                <i class="material-icons">account_circle</i>
-                {{'ProfileTitle'|localize}}
-              </router-link>
-            </li>
-            <li class="divider" tabindex="-1"></li>
-            <li>
-              <a href="#" class="black-text" @click.prevent="logout">
-                <i class="material-icons">assignment_return</i>
-                {{'Exit'|localize}}
-              </a>
-            </li>
-          </ul>
-        </li>
-      </ul>
+      <router-link
+        v-for="link in links"
+        :key="link.to"
+        active-class="active"
+        class="nav_item"
+        :exact="link.exact"
+        :to="link.to"
+      >{{ link.title }}</router-link>
     </div>
-  </nav>
+    <a href="#" class="logout" @click.prevent="logout">Выйти</a>
+  </div>
 </template>
 
+<style lang="scss" scoped>
+.active {
+  float: left;
+  position: relative;
+}
+.active::after {
+  border-bottom: 2px solid #1390e5;
+  bottom: -28px;
+  content: ' ';
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+.logo {
+  width: 55px;
+  margin-left: 2vw;
+}
+.nav {
+  border: 1px solid #f1f1f1;
+  height: 80px;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ovner {
+  display: flex;
+  align-items: center;
+
+  a {
+    margin-left: 2vw;
+  }
+}
+
+.logout {
+  margin-right: 5vw;
+}
+
+a {
+  color: #1390e5;
+  font-family: Roboto;
+  text-decoration: none;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 28px;
+}
+</style>
 
 <script>
 export default {
   data: () => ({
-    date: new Date(),
-    interval: null,
-    dropdown: null
+    links: [
+      { title: 'Поиск', to: '/', exact: true },
+      { title: 'Избранное', to: '/favorites' }
+    ]
   }),
   methods: {
     async logout() {
@@ -55,14 +87,7 @@ export default {
       return this.$store.getters.info.name
     }
   },
-  mounted() {
-    this.interval = setInterval(() => {
-      this.date = new Date()
-    }, 1000)
-    this.dropdown = M.Dropdown.init(this.$refs.dropdown, {
-      constrainWidth: false
-    })
-  },
+
   beforeDestroy() {
     clearInterval(this.interval)
     if (this.dropdown && this.dropdown.destroy) {

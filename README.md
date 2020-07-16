@@ -1,19 +1,37 @@
-# economy_VUE
+## Project setup
 
-- Login
-![img](readMe/q.jpg)
+```
+yarn install
+```
 
-* Home
-  ![img](/readMe/1.jpg)
+Если в консоли ошибка totalResults, то:
+В файле .env
+введите свой api, ключ с разрешенным доступ youtube
 
-* history
-  ![img](/readMe/2.jpg)
+## Данные для входа
 
-* planning
-  ![img](/readMe/3.jpg)
+Первый аккаунт
 
-* record
-  ![img](/readMe/4.jpg)
+Login: testovoe@mail.ru
+Pass: testovoe
 
-* categories
-  ![img](/readMe/5.jpg)
+Второй аккаунт
+
+Login: testovoe2@mail.ru
+Pass: testovoe2
+
+### Compiles and hot-reloads for development
+
+```
+yarn serve
+```
+
+### Compiles and minifies for production
+
+```
+yarn build
+```
+
+### Customize configuration
+
+See [Configuration Reference](https://cli.vuejs.org/config/).

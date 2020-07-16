@@ -11,56 +11,24 @@ const router = new Router({
     {
       path: '/login',
       name: 'login',
-      meta: {layout: 'empty'},
+
       component: () => import('./views/Login.vue')
     },
-    {
-      path: '/register',
-      name: 'register',
-      meta: {layout: 'empty'},
-      component: () => import('./views/Register.vue')
-    },
+
     {
       path: '/',
-      name: 'home',
-      meta: {layout: 'main', auth: true},
+      name: 'Search',
+      props: true,
+      meta: { layout: 'main', auth: true },
       component: () => import('./views/Home.vue')
     },
+
     {
-      path: '/categories',
-      name: 'categories',
-      meta: {layout: 'main', auth: true},
-      component: () => import('./views/Categories.vue')
-    },
-    {
-      path: '/detail/:id',
-      name: 'detail',
-      meta: {layout: 'main', auth: true},
-      component: () => import('./views/Detail.vue')
-    },
-    {
-      path: '/history',
-      name: 'history',
-      meta: {layout: 'main', auth: true},
-      component: () => import('./views/History.vue')
-    },
-    {
-      path: '/planning',
-      name: 'planning',
-      meta: {layout: 'main', auth: true},
-      component: () => import('./views/Planning.vue')
-    },
-    {
-      path: '/profile',
-      name: 'profile',
-      meta: {layout: 'main', auth: true},
-      component: () => import('./views/Profile.vue')
-    },
-    {
-      path: '/record',
-      name: 'record',
-      meta: {layout: 'main', auth: true},
-      component: () => import('./views/Record.vue')
+      path: '/favorites',
+      name: 'favorites',
+      props: true,
+      meta: { layout: 'main', auth: true },
+      component: () => import('./views/favorites.vue')
     }
   ]
 })
@@ -75,6 +43,5 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
-
 
 export default router

@@ -1,7 +1,8 @@
 {
   "name": "vue-youtube",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build"
@@ -14,11 +15,7 @@
     "materialize-css": "^1.0.0-rc.2",
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.6",
-    "vue-chartjs": "^3.4.2",
-    "vue-meta": "^1.6.0",
     "vue-router": "^3.0.1",
-    "vuejs-paginate": "^2.1.0",
-    "vuelidate": "^0.7.4",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
@@ -26,7 +23,8 @@
     "@vue/cli-plugin-pwa": "^3.5.0",
     "@vue/cli-service": "^3.5.0",
     "node-sass": "^4.9.0",
-    "sass-loader": "^7.1.0",
+    "sass": "^1.26.5",
+    "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.5.21"
   }
 }

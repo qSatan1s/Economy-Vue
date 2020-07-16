@@ -1,29 +1,47 @@
 <template>
   <div id="app">
-    <component :is="layout">
-      <router-view />
-    </component>
+    <Navbar v-if="isLogin" />
+    <router-view />
   </div>
 </template>
 
 <script>
-import EmptyLayout from '@/layouts/EmptyLayout'
-import MainLayout from '@/layouts/MainLayout'
+import Navbar from '@/components/app/Navbar'
+
 export default {
-  computed: {
-    layout() {
-      return (this.$route.meta.layout || 'empty') + '-layout'
-    }
-  },
   components: {
-    EmptyLayout,
-    MainLayout
+    Navbar
+  },
+
+  computed: {
+    isLogin: function() {
+      if (this.$store.getters.info.name) {
+        return true
+      } else {
+        return false
+      }
+    }
   }
 }
 </script>
 
-
 <style>
-@import '~materialize-css/dist/css/materialize.min.css';
-@import 'assets/index.css';
+html {
+  background: #fafafa;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+#app {
+  font-family: 'Open Sans';
+  font-size: 16px;
+  color: #000;
+}
+.Loader {
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 </style>
